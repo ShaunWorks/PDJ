@@ -3,7 +3,7 @@ const HOSTURL = "http://api.giphy.com/v1/gifs/search?";
 let params = `q=dog&api_key=${APIKEY}`;
 
 let gifs = [];
-
+var bool = true;
 let $grid = $('.grid').masonry({
     itemSelector: '.grid-item',
     percentPosition: true,
@@ -18,18 +18,30 @@ $.ajax({
 
     for (let i = 0; i < 25; i++) {
         let holder = $("<div>").addClass("grid-item");
-        let image = $("<img>").attr("src", response.data[i].images.fixed_height_still.url);
+        let image = $("<img>").attr("src", response.data[i].images.original_still.url);
         holder.append(image);
-        $('.grid').append(holder).masonry('appended', holder);
+        gifs.push(holder);
     }
 
-    $grid.imagesLoaded().done( function() {
+    displayGifs();
+    $grid.imagesLoaded().progress( function() {
         $grid.masonry('layout');
       });
 
 }).fail(function (response) {
     console.log(response);
 })
+
+function displayGifs()
+{
+    console.log(gifs);
+    gifs.forEach(function(holder){
+        $('.grid').append(holder).masonry('appended', holder);
+    });
+
+}
+
+function params ()
 
 $("#test").on("click", function(){
     $grid.masonry('layout');
