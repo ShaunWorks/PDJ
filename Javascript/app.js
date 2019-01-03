@@ -65,6 +65,21 @@ function fillGifs () {
 }
 
 function displayGifs() {
+    // shuffler
+    let currentIndex = gifs.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = gifs[currentIndex];
+        gifs[currentIndex] = gifs[randomIndex];
+        gifs[randomIndex] = temporaryValue;
+    };
+
     gifs.forEach(function (holder) {
         $('.grid').append(holder).masonry('appended', holder);
     });
