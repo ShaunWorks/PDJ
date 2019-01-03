@@ -71,4 +71,9 @@ body {
     .grid {
         background: red;
     }
+
+    .grid-sizer,
+    .grid-item {
+        width: 20%;
+    }
 }

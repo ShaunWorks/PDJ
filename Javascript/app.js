@@ -5,6 +5,7 @@ let gifs = [];
 let limit = 25;
 let apiCalls = 0;
 
+// define masonry layout
 let $grid = $('.grid').masonry({
     itemSelector: '.grid-item',
     percentPosition: true,
@@ -43,37 +44,6 @@ function handleSuccess(response) {
 
 }
 
-function displayGifs() {
-    gifs.forEach(function (holder) {
-        $('.grid').append(holder).masonry('appended', holder);
-    });
-    $grid.imagesLoaded().progress(function () {
-        $grid.masonry('layout');
-    });
-}
-
-
-// $("#test").on("click", function () {
-//     $grid.masonry('layout');
-// });
-
-$(".grid").on("click", ".gif", function () {
-    if ($(this).attr("clicked") == "false") {
-        $(this).find("img").attr("src", $(this).find("img").attr("animated"));
-        $(this).attr("clicked", "true");
-    }
-    else {
-        $(this).find("img").attr("src", $(this).find("img").attr("still"));
-        $(this).attr("clicked", "false");
-    }
-})
-
-$(window).on('scroll', function () {
-    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-        fillGifs();
-    }
-});
-
 function fillGifs () {
     getGifs("dog", GIPHY_APIKEY, function (err, data) {
         if (err) {
@@ -94,5 +64,33 @@ function fillGifs () {
     });
 }
 
+function displayGifs() {
+    gifs.forEach(function (holder) {
+        $('.grid').append(holder).masonry('appended', holder);
+    });
+    $grid.imagesLoaded().progress(function () {
+        $grid.masonry('layout');
+    });
+}
+
 fillGifs();
+
+// toggle gif animation on click
+$(".grid").on("click", ".gif", function () {
+    if ($(this).attr("clicked") == "false") {
+        $(this).find("img").attr("src", $(this).find("img").attr("animated"));
+        $(this).attr("clicked", "true");
+    }
+    else {
+        $(this).find("img").attr("src", $(this).find("img").attr("still"));
+        $(this).attr("clicked", "false");
+    }
+})
+
+// display more gifs when the user gets to the bottom of the page
+$(window).on('scroll', function () {
+    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        fillGifs();
+    }
+});
 
