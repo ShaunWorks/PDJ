@@ -28,7 +28,7 @@ function getGifs(query, key, cb) {
 }
 
 function handleSuccess(response) {
-    console.log(response.data[0].images);
+    //console.log(response.data[0].images);
 
     $.each(response.data, function (key, value) {
         let holder = $("<div>").addClass("grid-item gif").attr("clicked", "false");
@@ -57,9 +57,16 @@ function fillGifs () {
             } else {
                 handleSuccess(data);
             }
-            displayGifs();
-            apiCalls += limit;
-            gifs = [];
+            getGifs("joggers", GIPHY_APIKEY, function (err, data) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    handleSuccess(data);
+                }
+                displayGifs();
+                apiCalls += limit;
+                gifs = [];
+            })
         });
     });
 }
