@@ -1,5 +1,5 @@
 const GIPHY_APIKEY = "hFBK0Y9nBlTuUIHFkoN2wZL0W9AzGWgV";
-const HOSTURL = "http://api.giphy.com/v1/gifs/search?";
+const HOSTURL = "https://api.giphy.com/v1/gifs/search?";
 
 let gifs = [];
 let limit = 25;
