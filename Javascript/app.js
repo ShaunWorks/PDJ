@@ -19,8 +19,8 @@ function getGifs(query, key, cb) {
         method: "GET"
     }).done(function (response) {
         cb(null, response);
-    }).fail(function (response) {
-        console.log(response);
+    }).fail(function (error) {
+        console.log(error);
         cb(error, null);
     })
 
